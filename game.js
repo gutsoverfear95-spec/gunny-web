@@ -800,7 +800,16 @@ document.querySelectorAll('.map-btn').forEach(b=>b.addEventListener('click',()=>
   document.querySelectorAll('.map-btn').forEach(x=>x.classList.remove('active'));
   b.classList.add('active'); mapKey=b.dataset.map; SFX.click();
 }));
-document.getElementById('start-btn').addEventListener('click',()=>{ac();SFX.click();startGame();});
+let gfxMode='2d';
+document.querySelectorAll('[data-gfx]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-gfx]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); gfxMode=b.dataset.gfx; SFX.click();
+  document.getElementById('start-btn').textContent = gfxMode==='3d' ? '🚀 CHƠI BẢN 3D THREE.JS' : '▶ BẮT ĐẦU CHƠI';
+}));
+document.getElementById('start-btn').addEventListener('click',()=>{
+  if(gfxMode==='3d'){ window.location.href='game3d.html'; return; }
+  ac();SFX.click();startGame();
+});
 // ---------- VONG LAP CHINH ----------
 function loop(){
   handleKeys();
