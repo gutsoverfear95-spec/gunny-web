@@ -1,5 +1,6 @@
 // ===== GUNNY 3D — Three.js renderer + giu nguyen gameplay 2D =====
-import * as THREE from 'three';
+// dung ban UMD (three.min.js) de khong bi loi CORS/module
+/* global THREE */
 
 // --- helpers DOM / audio tai su dung tu ban 2D ---
 // (logic choi: surface[], players[], bullets... copy y tu game.js, chi thay render = Three.js)
@@ -7,6 +8,13 @@ import * as THREE from 'three';
 // goi lai audio + data tu items.js/shop.js (da load truoc)
 const canvas2d = document.createElement('canvas'); // giu tuong thich ham cu neu co
 
+if(!window.THREE){
+  document.getElementById('gfx-mode').textContent='LỖI: không tải được Three.js (cần mạng)!';
+  alert('Không tải được Three.js từ CDN. Bạn cần mạng, hoặc về bản 2D chơi nhé!');
+} else {
+main3D();
+}
+function main3D(){
 const W = 1280, H = 720;
 const cv = document.getElementById('scene');
 
@@ -93,6 +101,7 @@ function genTerrain(){
 function groundY(x){ x=Math.max(0,Math.min(W-1,Math.round(x))); return surface[x]; }
 function gunStat(key){ const g=(typeof GUNS!=='undefined'&&GUNS[key])?GUNS[key]:{dmg:35,radius:70,dig:1};
   return {dmg:(typeof gunDmg!=='undefined')?gunDmg(key):g.dmg,radius:g.radius||70,dig:g.dig||1,count:g.count||1,bounce:g.bounce||0,heal:!!g.heal,color:g.color||'#333'}; }
+function rebuildTerrain3D(){ buildWorld3D(); }
 function digHole(x,y,r,m){ r=r*(m||1);
   for(let ix=Math.max(0,Math.floor(x-r));ix<=Math.min(W-1,Math.ceil(x+r));ix++){
     const dx=ix-x,dy=surface[ix]-y;
@@ -755,3 +764,4 @@ function loop3d(){
   fpsTick();
 }
 genTerrain(); buildWorld3D(); loop3d();
+} // het main3D

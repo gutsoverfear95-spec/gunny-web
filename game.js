@@ -804,10 +804,11 @@ let gfxMode='2d';
 document.querySelectorAll('[data-gfx]').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('[data-gfx]').forEach(x=>x.classList.remove('active'));
   b.classList.add('active'); gfxMode=b.dataset.gfx; SFX.click();
-  document.getElementById('start-btn').textContent = gfxMode==='3d' ? '🚀 CHƠI BẢN 3D THREE.JS' : '▶ BẮT ĐẦU CHƠI';
+  document.getElementById('start-btn').textContent = gfxMode==='3d' ? '🚀 CHƠI BẢN 3D THREE.JS' : (gfxMode==='pixi' ? '💜 CHƠI BẢN PIXI WEBGL' : '▶ BẮT ĐẦU CHƠI');
 }));
 document.getElementById('start-btn').addEventListener('click',()=>{
   if(gfxMode==='3d'){ window.location.href='game3d.html'; return; }
+  if(gfxMode==='pixi'){ window.location.href='gamepixi.html'; return; }
   ac();SFX.click();startGame();
 });
 // ---------- VONG LAP CHINH ----------
