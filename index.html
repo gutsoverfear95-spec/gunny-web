@@ -30,15 +30,22 @@
       </div>
       <div class="menu-section">
         <h3>🗺️ Bản đồ</h3>
-        <div class="btn-row">
+        <div class="btn-row" id="map-row">
           <button class="map-btn active" data-map="hill">🌄 Đồi Xanh</button>
           <button class="map-btn" data-map="desert">🏜️ Sa Mạc</button>
           <button class="map-btn" data-map="moon">🌙 Mặt Trăng</button>
+          <button class="map-btn" data-map="beach">🏖️ Bãi Biển</button>
+          <button class="map-btn" data-map="volcano">🌋 Núi Lửa</button>
+          <button class="map-btn" data-map="ice">❄️ Băng Tuyết</button>
+          <button class="map-btn" data-map="forest">🌲 Rừng Ma</button>
         </div>
       </div>
       <div class="menu-section">
-        <h3>🔫 Vũ khí mở đầu</h3>
-        <p class="hint">Vào trận bạn có 3 loại đạn, đổi tự do mỗi lượt!</p>
+        <h3>🔫 Súng của bạn: <span id="menu-gun">🍉 Dưa Hấu</span></h3>
+        <p class="hint" id="menu-gear">Mũ Rơm • Áo Vải • Giày Cỏ • Cường hóa +0</p>
+        <div class="btn-row">
+          <button id="open-shop" class="mode-btn">🛒 SHOP / TRANG BỊ / ĐẬP ĐỒ</button>
+        </div>
       </div>
       <button id="start-btn">▶ BẮT ĐẦU CHƠI</button>
       <div class="controls-help">
@@ -72,21 +79,21 @@
   <!-- CONTROLS -->
   <div id="controls" class="hidden">
     <div class="weapons">
-      <button class="wpn-btn active" data-wpn="single" title="Sát thương 35, nổ vừa">💣 Thường</button>
-      <button class="wpn-btn" data-wpn="triple" title="3 viên, mỗi viên 15 dmg">💥 Chùm x3</button>
-      <button class="wpn-btn" data-wpn="digger" title="Đào đất siêu to, dmg 12">🕳️ Đào đất</button>
+      <button class="wpn-btn active" data-wpn="shot" title="Đạn thường của súng">🎯 Đạn thường</button>
+      <button class="wpn-btn" data-wpn="skill" title="Chiêu đặc biệt của súng">✨ Tuyệt chiêu</button>
     </div>
     <div class="sliders">
       <label>📐 Góc: <b id="angle-val">75°</b>
         <input type="range" id="angle-slider" min="10" max="170" value="75">
       </label>
-      <label>💪 Lực: <b id="power-val">60</b>
-        <input type="range" id="power-slider" min="10" max="100" value="60">
-      </label>
-      <div id="charge-wrap"><div id="charge-fill"></div></div>
+      <div class="power-zone">
+        <div class="power-top"><span>💪 LỰC BẮN (giữ SPACE)</span><b id="power-val">60</b></div>
+        <div id="power-meter"><div id="power-needle"></div><div id="power-ghost"></div></div>
+      </div>
     </div>
     <div class="action-btns">
       <button id="fire-btn">🔥 BẮN (Space)</button>
+      <button id="shop-btn" title="Cửa hàng">🛒</button>
       <button id="restart-btn" title="Chơi lại">↻</button>
       <button id="menu-btn" title="Về menu">🏠</button>
       <button id="sound-btn" title="Bật/tắt tiếng">🔊</button>
@@ -105,7 +112,25 @@
   </div>
 
   <div id="toast"></div>
+
+  <!-- SHOP -->
+  <div id="shop-screen" class="overlay hidden">
+    <div class="menu-card wide">
+      <div class="logo small">🛒 CỬA HÀNG</div>
+      <div class="subtitle">Vàng của bạn: <b id="shop-gold" class="gold">0</b> 💰 <button id="gold-free" class="mini-btn">+ Nhận 500 vàng</button></div>
+      <div class="shop-tabs">
+        <button class="shop-tab active" data-tab="guns">🔫 Súng</button>
+        <button class="shop-tab" data-tab="armor">🥋 Trang bị</button>
+        <button class="shop-tab" data-tab="enhance">🔨 Cường hóa</button>
+        <button class="shop-tab" data-tab="my">🎒 Của tôi</button>
+      </div>
+      <div id="shop-list" class="shop-list"></div>
+      <button id="shop-close" class="ghost">Đóng</button>
+    </div>
+  </div>
 </div>
+<script src="items.js"></script>
+<script src="shop.js"></script>
 <script src="game.js"></script>
 </body>
 </html>

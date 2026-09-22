@@ -47,13 +47,38 @@ kbd{background:#334155;border-radius:5px;padding:2px 7px;font-family:monospace}
 .sliders{display:flex;gap:16px;align-items:center;flex:1;flex-wrap:wrap}
 .sliders label{font-size:14px;display:flex;align-items:center;gap:8px}
 input[type=range]{width:140px;accent-color:#22d3ee}
-#charge-wrap{width:140px;height:14px;background:#020617;border-radius:7px;overflow:hidden;border:1px solid #475569}
-#charge-fill{height:100%;width:0%;background:linear-gradient(90deg,#22c55e,#facc15,#ef4444)}
+#charge-wrap{display:none}
+.power-zone{flex:1;min-width:280px}
+.power-top{display:flex;justify-content:space-between;font-size:13px;font-weight:800;margin-bottom:4px}
+#power-meter{position:relative;height:22px;border-radius:11px;border:2px solid #facc15;overflow:hidden;background:linear-gradient(90deg,#22c55e 0%,#22c55e 40%,#facc15 55%,#facc15 75%,#ef4444 85%,#ef4444 100%)}
+#power-ghost{position:absolute;left:0;top:0;bottom:0;width:0%;background:rgba(0,0,0,.45)}
+#power-needle{position:absolute;top:-2px;bottom:-2px;width:4px;background:#fff;box-shadow:0 0 6px #000;left:60%}
+.logo.small{font-size:30px}
+.menu-card.wide{max-width:720px}
+.gold{color:#facc15}
+.mini-btn{background:#0f172a;border:2px solid #38bdf8;color:#fff;border-radius:10px;padding:7px 12px;cursor:pointer;font-weight:800}
+.mini-btn.buy{background:linear-gradient(90deg,#16a34a,#15803d);border-color:#22c55e}
+.mini-btn.use{background:linear-gradient(90deg,#0284c7,#0369a1);border-color:#38bdf8}
+.mini-btn.forge{background:linear-gradient(90deg,#c2410c,#9a3412);border-color:#fb923c}
+.mini-btn.done{opacity:.6}
+.shop-tabs{display:flex;gap:6px;justify-content:center;margin:10px 0;flex-wrap:wrap}
+.shop-tab{background:#0f172a;border:2px solid #334155;color:#fff;border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:800}
+.shop-tab.active{border-color:#facc15;background:#422006}
+.shop-list{max-height:46vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.shop-item{display:flex;gap:10px;align-items:center;background:rgba(2,6,23,.55);border:1px solid #334155;border-radius:12px;padding:8px 10px;text-align:left}
+.shop-icon{font-size:30px;width:44px;text-align:center}
+.shop-info{flex:1;display:flex;flex-direction:column;font-size:13px}
+.shop-info span{color:#7dd3fc}
+.shop-info i{color:#94a3b8;font-size:12px}
+.my-box{background:rgba(2,6,23,.55);border:1px solid #facc15;border-radius:12px;padding:10px;font-size:14px;line-height:1.8}
+.owned-tag{display:inline-block;background:#0f172a;border:1px solid #38bdf8;border-radius:20px;padding:4px 10px;margin:3px;font-size:12px}
+.my-title{margin:8px 0 4px;text-align:left}
+.forge-note{color:#facc15;font-size:13px}
 .action-btns{display:flex;gap:6px}
 #fire-btn{background:linear-gradient(90deg,#ef4444,#dc2626);border:none;color:#fff;font-weight:900;font-size:17px;padding:10px 26px;border-radius:12px;cursor:pointer}
 #fire-btn:hover{transform:scale(1.05)}
 #fire-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-#restart-btn,#menu-btn,#sound-btn{background:#334155;border:none;color:#fff;font-size:17px;padding:10px 14px;border-radius:12px;cursor:pointer}
+#restart-btn,#menu-btn,#sound-btn,#shop-btn{background:#334155;border:none;color:#fff;font-size:17px;padding:10px 14px;border-radius:12px;cursor:pointer}
 #hint-bar{font-size:12px;color:#64748b}
 #hint-bar.hidden{display:none}
 #over-title{font-size:34px}
