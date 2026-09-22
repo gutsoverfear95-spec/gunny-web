@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gunny Web - Bắn Gà Siêu Cấp</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <!-- MENU -->
+  <div id="menu-screen" class="overlay">
+    <div class="menu-card">
+      <div class="logo">🐔 GUNNY WEB</div>
+      <div class="subtitle">Bắn gà siêu cấp - Bản web chơi ngay không cần cài!</div>
+      <div class="menu-section">
+        <h3>🎮 Chế độ chơi</h3>
+        <div class="btn-row">
+          <button class="mode-btn active" data-mode="bot">🤖 1 Người (vs Máy)</button>
+          <button class="mode-btn" data-mode="pvp">👥 2 Người (chung máy)</button>
+        </div>
+      </div>
+      <div class="menu-section" id="diff-section">
+        <h3>🧠 Độ khó máy</h3>
+        <div class="btn-row">
+          <button class="diff-btn" data-diff="easy">Dễ</button>
+          <button class="diff-btn active" data-diff="normal">Thường</button>
+          <button class="diff-btn" data-diff="hard">Khó</button>
+        </div>
+      </div>
+      <div class="menu-section">
+        <h3>🗺️ Bản đồ</h3>
+        <div class="btn-row">
+          <button class="map-btn active" data-map="hill">🌄 Đồi Xanh</button>
+          <button class="map-btn" data-map="desert">🏜️ Sa Mạc</button>
+          <button class="map-btn" data-map="moon">🌙 Mặt Trăng</button>
+        </div>
+      </div>
+      <div class="menu-section">
+        <h3>🔫 Vũ khí mở đầu</h3>
+        <p class="hint">Vào trận bạn có 3 loại đạn, đổi tự do mỗi lượt!</p>
+      </div>
+      <button id="start-btn">▶ BẮT ĐẦU CHƠI</button>
+      <div class="controls-help">
+        <b>📖 Cách chơi:</b>
+        <span>⬅️➡️ / A D: Di chuyển (tốn xăng) &nbsp; • &nbsp; ⬆️⬇️ / W S: Chỉnh góc &nbsp; • &nbsp; Giữ <kbd>SPACE</kbd> lấy lực, thả để BẮN &nbsp; • &nbsp; Hoặc kéo-thả chuột từ nhân vật để ngắm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div class="player-card p1">
+      <div class="p-name">🐤 Gà 1 <span id="turn-dot-1" class="turn-dot"></span></div>
+      <div class="hp-bar"><div id="hp1-fill" class="hp-fill"></div><span id="hp1-text">100</span></div>
+      <div id="fuel1" class="fuel">⛽ 100</div>
+    </div>
+    <div class="center-info">
+      <div id="wind-box">🌪️ Gió: <span id="wind-val">0</span> <span id="wind-arrow">→</span></div>
+      <div id="timer-box">⏱️ <span id="timer-val">30</span>s</div>
+      <div id="turn-label">Lượt: Gà 1</div>
+    </div>
+    <div class="player-card p2">
+      <div class="p-name"><span id="turn-dot-2" class="turn-dot"></span> Gà 2 🤖</div>
+      <div class="hp-bar"><div id="hp2-fill" class="hp-fill"></div><span id="hp2-text">100</span></div>
+      <div id="fuel2" class="fuel">⛽ 100</div>
+    </div>
+  </div>
+
+  <canvas id="game" width="1280" height="720"></canvas>
+
+  <!-- CONTROLS -->
+  <div id="controls" class="hidden">
+    <div class="weapons">
+      <button class="wpn-btn active" data-wpn="single" title="Sát thương 35, nổ vừa">💣 Thường</button>
+      <button class="wpn-btn" data-wpn="triple" title="3 viên, mỗi viên 15 dmg">💥 Chùm x3</button>
+      <button class="wpn-btn" data-wpn="digger" title="Đào đất siêu to, dmg 12">🕳️ Đào đất</button>
+    </div>
+    <div class="sliders">
+      <label>📐 Góc: <b id="angle-val">75°</b>
+        <input type="range" id="angle-slider" min="10" max="170" value="75">
+      </label>
+      <label>💪 Lực: <b id="power-val">60</b>
+        <input type="range" id="power-slider" min="10" max="100" value="60">
+      </label>
+      <div id="charge-wrap"><div id="charge-fill"></div></div>
+    </div>
+    <div class="action-btns">
+      <button id="fire-btn">🔥 BẮN (Space)</button>
+      <button id="restart-btn" title="Chơi lại">↻</button>
+      <button id="menu-btn" title="Về menu">🏠</button>
+      <button id="sound-btn" title="Bật/tắt tiếng">🔊</button>
+    </div>
+  </div>
+  <div id="hint-bar" class="hidden">Kéo chuột từ gà của bạn để ngắm nhanh • A/D di chuyển • W/S chỉnh góc • Giữ SPACE lấy lực</div>
+
+  <!-- GAME OVER -->
+  <div id="over-screen" class="overlay hidden">
+    <div class="menu-card">
+      <div id="over-title" class="logo">🏆 GÀ 1 THẮNG!</div>
+      <div id="over-stats" class="subtitle"></div>
+      <button id="again-btn">▶ CHƠI LẠI</button>
+      <button id="home-btn" class="ghost">🏠 VỀ MENU</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
